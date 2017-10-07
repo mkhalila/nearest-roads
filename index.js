@@ -14,8 +14,11 @@ const overpass = 'http://overpass-api.de/api/interpreter?data=';
  */
 function fromCentre(lat, long, distance, callback) {
   const query = `[out:json]; way["highway"](around:${distance},${lat},${long}); out;`;
+
   getJSON(`${overpass}${query}`, (err, result) => {
     if (err) callback(err, null);
+
+    if (result.elements.length === 0) callback(new Error('Found 0 Roads'), null);
 
     let roads = [];
     result.elements.forEach(element => roads.push(element.tags.name));
@@ -27,5 +30,5 @@ function fromCentre(lat, long, distance, callback) {
 
 fromCentre(51.424037, -0.148666, 100, (err, data) => {
   if (err) console.log(err);
-  console.log(data);
+  else console.log(data);
 });
