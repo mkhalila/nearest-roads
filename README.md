@@ -1,5 +1,5 @@
 # nearest-roads
-This is a standard Node module which uses [query-overpass](https://www.npmjs.com/package/query-overpass) to retrieve a list of the nearest roads from OpenStreetMaps, given:
+This is a standard Node module to retrieve a list of the nearest roads from OpenStreetMaps, given:
 1. latitude
 2. longitude
 3. distance in metres
