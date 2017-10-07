@@ -1,20 +1,31 @@
 const getJSON = require('get-json');
 const unique = require('array-unique');
 
+/** URL of the Overpass API being used */
 const overpass = 'http://overpass-api.de/api/interpreter?data=';
 
-const lat = 51.424037;
-const long = -0.148666;
-const distance = 100;
+/**
+ * Get all road names within a specified distance from a location.
+ * @param {number} lat - Latitude of centre location.
+ * @param {number} long - Longitude of centre location.
+ * @param {number} distance - Radius distance in metres.
+ * @param {function} callback - callback(err, data)
+ * @returns {array} - Array of road names, use callback.
+ */
+function fromCentre(lat, long, distance, callback) {
+  const query = `[out:json]; way["highway"](around:${distance},${lat},${long}); out;`;
+  getJSON(`${overpass}${query}`, (err, result) => {
+    if (err) callback(err, null);
 
-const query = `[out:json]; way["highway"](around:${distance},${lat},${long}); out;`;
+    let roads = [];
+    result.elements.forEach(element => roads.push(element.tags.name));
+    roads = unique(roads);
 
-getJSON(`${overpass}${query}`, (err, result) => {
+    callback(null, roads);
+  });
+}
+
+fromCentre(51.424037, -0.148666, 100, (err, data) => {
   if (err) console.log(err);
-
-  let roads = [];
-  result.elements.forEach(element => roads.push(element.tags.name));
-  roads = unique(roads);
-
-  console.log(roads);
+  console.log(data);
 });
