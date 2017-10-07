@@ -1,0 +1,31 @@
+{
+  "name": "nearest-roads",
+  "version": "1.0.0",
+  "description": "Get nearest roads to a given location, within a given distance",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mkhalila/nearest-roads.git"
+  },
+  "keywords": [
+    "nearest",
+    "roads",
+    "closest",
+    "streets",
+    "nearby",
+    "neighbouring",
+    "ways"
+  ],
+  "author": "Khalil Ahmed <mkhalila@outlook.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mkhalila/nearest-roads/issues"
+  },
+  "homepage": "https://github.com/mkhalila/nearest-roads#readme",
+  "dependencies": {
+    "query-overpass": "^1.5.1"
+  }
+}
