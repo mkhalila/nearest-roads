@@ -56,4 +56,31 @@ describe('#fromLocation', () => {
       done();
     });
   });
+
+  it('returns error for invalid latitude value', (done) => {
+    fromLocation(-120, long, 30, (err, roads) => {
+      should.exist(err);
+      should.not.exist(roads);
+      err.message.should.equal('Latitude must be between -90 and 90');
+      done();
+    });
+  });
+
+  it('returns error for invalid longitude value', (done) => {
+    fromLocation(lat, 190, 30, (err, roads) => {
+      should.exist(err);
+      should.not.exist(roads);
+      err.message.should.equal('Longitude must be between -180 and 180');
+      done();
+    });
+  });
+
+  it('returns error for negative distance', (done) => {
+    fromLocation(lat, long, -30, (err, roads) => {
+      should.exist(err);
+      should.not.exist(roads);
+      err.message.should.equal('Distance must be greater than 0');
+      done();
+    });
+  });
 });
