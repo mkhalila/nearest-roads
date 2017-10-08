@@ -6,13 +6,13 @@ const overpass = 'http://overpass-api.de/api/interpreter?data=';
 
 /**
  * Get all road names within a specified distance from a location.
- * @param {number} lat - Latitude of centre location.
- * @param {number} long - Longitude of centre location.
- * @param {number} distance - Radius distance in metres.
- * @param {function} callback - callback(err, data)
- * @returns {array} - Array of road names, use callback.
+ * @param {Number} lat - Latitude of centre location.
+ * @param {Number} long - Longitude of centre location.
+ * @param {Number} distance - Radius distance in metres.
+ * @param {Function} callback - callback(err, data)
+ * @returns {Array} - Array of road names, use callback.
  */
-function fromCentre(lat, long, distance, callback) {
+function fromLocation(lat, long, distance, callback) {
   const query = `[out:json]; way["highway"](around:${distance},${lat},${long}); out;`;
 
   getJSON(`${overpass}${query}`, (err, result) => {
@@ -28,7 +28,4 @@ function fromCentre(lat, long, distance, callback) {
   });
 }
 
-fromCentre(51.424037, -0.148666, 100, (err, data) => {
-  if (err) console.log(err);
-  else console.log(data);
-});
+module.exports = { fromLocation };
