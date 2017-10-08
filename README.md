@@ -3,7 +3,7 @@ This is a standard Node module to retrieve a list of the nearest roads from Open
 
 `const nearestRoads = require('nearest-roads');`
 
-### Usage
+### Usage
 
 1. Nearest roads from a Location: `fromLocation(lat, long, distance, callback)`
   ```
