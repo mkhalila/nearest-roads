@@ -29,4 +29,31 @@ describe('#fromLocation', () => {
       done();
     });
   });
+
+  it('returns error when type of lat is not number', (done) => {
+    fromLocation('bananas', long, 30, (err, roads) => {
+      should.exist(err);
+      should.not.exist(roads);
+      err.message.should.equal('Lat, Long, and Distance must be numbers');
+      done();
+    });
+  });
+
+  it('returns error when type of long is not number', (done) => {
+    fromLocation(lat, false, 30, (err, roads) => {
+      should.exist(err);
+      should.not.exist(roads);
+      err.message.should.equal('Lat, Long, and Distance must be numbers');
+      done();
+    });
+  });
+
+  it('returns error when type of distance is not number', (done) => {
+    fromLocation(lat, long, [], (err, roads) => {
+      should.exist(err);
+      should.not.exist(roads);
+      err.message.should.equal('Lat, Long, and Distance must be numbers');
+      done();
+    });
+  });
 });
