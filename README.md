@@ -3,17 +3,16 @@ This is a standard Node module to retrieve a list of the nearest roads from Open
 
 `const nearestRoads = require('nearest-roads');`
 
-### Usage
+## Usage
 
-1. Nearest roads from a Location: `fromLocation(lat, long, distance, callback)`
+#### Nearest roads from a location: `fromLocation(lat, long, distance, callback)`
+  Returns an array containing the names of the roads that are within `distance` metres radius of `lat` `long` location.
   ```
   nearestRoads.fromLocation(51.42, -0.148, 100, (err, data) => {
     if (err) console.log(err);
     else console.log(data);
   });
   ```
-
-The data is then parsed to abstract away some of the less relevant data returned from OpenStreetMap.
 
 Run `npm install` to install the dependencies.
 
