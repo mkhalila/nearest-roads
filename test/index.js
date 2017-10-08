@@ -7,7 +7,7 @@ const lat = 51.426163;
 const long = -0.146079;
 
 describe('#fromLocation', () => {
-  it('gets nimrod and woodnook roads for 30m from home', () => {
+  it('gets nimrod and woodnook roads 30m from home', (done) => {
     fromLocation(lat, long, 30, (err, roads) => {
       should.not.exist(err);
       should.exist(roads);
@@ -16,6 +16,17 @@ describe('#fromLocation', () => {
       roads.should.include('Woodnook Road');
       roads.should.include('Nimrod Road');
       roads.should.not.include('Longstone Road');
+      done();
+    });
+  });
+
+  it('gets empty array for distance 0', (done) => {
+    fromLocation(lat, long, 0, (err, roads) => {
+      should.not.exist(err);
+      should.exist(roads);
+      roads.should.be.an('array');
+      roads.should.have.length(0);
+      done();
     });
   });
 });
