@@ -15,16 +15,30 @@ const overpass = 'http://overpass-api.de/api/interpreter?data=';
 function fromLocation(lat, long, distance, callback) {
   const query = `[out:json]; way["highway"](around:${distance},${lat},${long}); out;`;
 
-  getJSON(`${overpass}${query}`, (err, result) => {
-    if (err) callback(err, null);
+  if (typeof lat !== 'number' || typeof long !== 'number' || typeof distance !== 'number') {
+    return callback(new Error('Lat, Long, and Distance must be numbers'), null);
+  }
 
-    if (result.elements.length === 0) callback(new Error('Found 0 Roads'), null);
+  if (Math.abs(lat) > 90) {
+    return callback(new Error('Latitude must be between -90 and 90'), null);
+  }
+
+  if (Math.abs(long) > 180) {
+    return callback(new Error('Longitude must be between -180 and 180'), null);
+  }
+
+  if (distance < 0) {
+    return callback(new Error('Distance must be greater than 0'), null);
+  }
+
+  return getJSON(`${overpass}${query}`, (err, result) => {
+    if (err) return callback(err, null);
 
     let roads = [];
     result.elements.forEach(element => roads.push(element.tags.name));
     roads = unique(roads);
 
-    callback(null, roads);
+    return callback(null, roads);
   });
 }
 
