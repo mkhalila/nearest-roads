@@ -17,15 +17,15 @@ function validateFromLocation(lat, long, distance) {
   }
 
   if (Math.abs(lat) > 90) {
-    return new Error('Latitude must be between -90 and 90');
+    return Error('Latitude must be between -90 and 90');
   }
 
   if (Math.abs(long) > 180) {
-    return new Error('Longitude must be between -180 and 180');
+    return Error('Longitude must be between -180 and 180');
   }
 
   if (distance < 0) {
-    return new Error('Distance must be greater than 0');
+    return Error('Distance must be greater than 0');
   }
 
   return null;
