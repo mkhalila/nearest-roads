@@ -1,6 +1,6 @@
 {
   "name": "nearest-roads",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Get nearest roads to a given location, within a given distance",
   "main": "index.js",
   "scripts": {
