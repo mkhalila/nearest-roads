@@ -45,7 +45,7 @@ function fromLocation(lat, long, distance, callback) {
   const validationError = validateFromLocation(lat, long, distance);
 
   if (validationError) {
-    return callback(validationError);
+    return callback(validationError, null);
   }
 
   return getJSON(`${overpass}${query}`, (err, result) => {
