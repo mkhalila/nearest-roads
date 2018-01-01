@@ -1,7 +1,7 @@
 {
   "name": "nearest-roads",
   "version": "0.1.4",
-  "description": "Get nearest roads to a given location, within a given distance",
+  "description": "Get nearest roads to a given location, or all roads within a bounding box.",
   "main": "index.js",
   "scripts": {
     "test": "nyc --reporter=html --reporter=text ./node_modules/mocha/bin/mocha"
@@ -17,7 +17,12 @@
     "streets",
     "nearby",
     "neighbouring",
-    "ways"
+    "ways",
+    "bbox",
+    "bounding box",
+    "osm",
+    "maps",
+    "overpass"
   ],
   "author": "Khalil Ahmed <mkhalila@outlook.com>",
   "license": "MIT",
