@@ -46,6 +46,14 @@ function validateBoundingBox(northLat, eastLong, southLat, westLong) {
     return new Error('northLat, eastLong, southLat and westLong must all be numbers.');
   }
 
+  if (Math.abs(northLat) > 90 || Math.abs(southLat) > 90) {
+    return Error('Latitude must be between -90 and 90');
+  }
+
+  if (Math.abs(eastLong) > 180 || Math.abs(westLong) > 180) {
+    return Error('Longitude must be between -180 and 180');
+  }
+
   if (northLat < southLat) {
     return new Error('northLat must be greater than southLat.');
   }
