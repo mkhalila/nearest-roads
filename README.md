@@ -1,5 +1,10 @@
 # nearest-roads
-A standard library providing methods to retrieve a list of the nearest roads from OpenStreetMaps.
+Get nearest roads to a given location, or all roads within a bounding box.
+
+## Version 0.2.0: Bounding Box Support!
+Previously, you could only retrieve the nearest roads to a central (lat, lon) location and a given radius distance.
+
+Now, there is support for getting all the roads inside a [Bounding box](http://wiki.openstreetmap.org/wiki/Overpass_API/Language_Guide#The_bounding_box).
 
 ## Installation
 
@@ -17,6 +22,28 @@ A standard library providing methods to retrieve a list of the nearest roads fro
   });
   ```
 
+#### Roads within a Bounding Box: `boundingBox(northLat, eastLong, southLat, westLong, callback)`
+
+```
+nearestRoads.boundingBox(51.5707755427, 0.922651543, 51.5046221724, 0.6790402342, (err, data) => {
+  if (err) console.log(err);
+  else console.log(data);
+});
+```
+
+Which returns: 
+```
+[ 'Cuckoo Corner',
+  'Prince Avenue',
+  'Queensway',
+  'Southchurch Avenue',
+  ...
+  'Wallace Street',
+  'Friars Street',
+  'Wakering Avenue',
+  ... 810 more items ]
+```
+  
 ## Contributing
 
 This project adheres to the [Airbnb JavaScript Style Guide](https://github.com/airbnb/javascript).
