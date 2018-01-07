@@ -1,9 +1,5 @@
-const getJSON = require('get-json');
-const unique = require('array-unique');
-const validators = require('./util/validators.js');
-
-/** URL of the Overpass API being used */
-const overpass = 'http://overpass-api.de/api/interpreter?data=';
+const validators = require('./util/validators');
+const overpass = require('./util/overpass');
 
 /**
  * Get all road names within a specified distance from a location.
@@ -23,13 +19,8 @@ function fromLocation(lat, long, distance, callback) {
     return callback(validationError, null);
   }
 
-  return getJSON(`${overpass}${query}`, (err, result) => {
+  return overpass.getRoads(query, (err, roads) => {
     if (err) return callback(err, null);
-
-    let roads = [];
-    result.elements.forEach(element => roads.push(element.tags.name));
-    roads = unique(roads);
-
     return callback(null, roads);
   });
 }
@@ -54,19 +45,8 @@ function boundingBox(northLat, eastLong, southLat, westLong, callback) {
     return callback(validationError, null);
   }
 
-  return getJSON(`${overpass}${query}`, (err, result) => {
+  return overpass.getRoads(query, (err, roads) => {
     if (err) return callback(err, null);
-
-    let roads = [];
-
-    result.elements.forEach((element) => {
-      if (element.tags.name !== undefined) {
-        roads.push(element.tags.name);
-      }
-    });
-
-    roads = unique(roads);
-
     return callback(null, roads);
   });
 }
