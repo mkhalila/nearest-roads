@@ -5,10 +5,11 @@ const unique = require('array-unique');
 const overpass = 'http://overpass-api.de/api/interpreter?data=';
 
 /**
- * 
- * 
- * @param {any} query 
- * @param {any} callback 
+ * Retrieve and process roads from the the Overpass API
+ *
+ * @param {String} query The Overpass query describing the request.
+ * @param {Function} callback (err, roads)
+ * @returns {Array} Array of road names matching query.
  */
 function getRoads(query, callback) {
   getJSON(`${overpass}${query}`, (err, result) => {
