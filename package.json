@@ -31,7 +31,6 @@
   },
   "homepage": "https://github.com/mkhalila/nearest-roads#readme",
   "dependencies": {
-    "array-unique": "^0.3.2",
     "get-json": "^1.0.0"
   },
   "devDependencies": {
