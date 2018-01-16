@@ -1,6 +1,6 @@
 {
   "name": "nearest-roads",
-  "version": "0.2.1",
+  "version": "1.0.0",
   "description": "Get nearest roads to a given location, or all roads within a bounding box.",
   "main": "index.js",
   "scripts": {
