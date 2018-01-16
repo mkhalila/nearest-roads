@@ -13,9 +13,8 @@ describe('#fromLocation', () => {
       should.exist(roads);
       roads.should.be.an('array');
       roads.should.have.length(2);
-      roads.should.include('Woodnook Road');
-      roads.should.include('Nimrod Road');
-      roads.should.not.include('Longstone Road');
+      roads[0].name.should.equal('Woodnook Road');
+      roads[1].name.should.equal('Nimrod Road');
       done();
     });
   });

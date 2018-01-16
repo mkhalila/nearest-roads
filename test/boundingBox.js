@@ -94,6 +94,9 @@ describe('#boundingBox', () => {
       should.not.exist(err);
       should.exist(roads);
       roads.should.be.an('array');
+      roads[0].should.be.an('object');
+      roads[0].should.have.property('name');
+      roads[0].should.have.property('type');
       done();
     });
   });
@@ -108,12 +111,15 @@ describe('#boundingBox', () => {
     });
   });
 
-  it('returns when bounding box is part ocean', (done) => {
+  it('returns roads when bounding box is part ocean', (done) => {
     boundingBox(51.5707755427, 0.922651543, 51.5046221724, 0.6790402342, (err, roads) => {
       should.not.exist(err);
       should.exist(roads);
       roads.should.be.an('array');
       roads.length.should.be.greaterThan(0);
+      roads[0].should.be.an('object');
+      roads[0].should.have.property('name');
+      roads[0].should.have.property('type');
       done();
     });
   });
@@ -123,10 +129,10 @@ describe('#boundingBox', () => {
       should.not.exist(err);
       should.exist(roads);
       roads.should.be.an('array');
-      roads.should.include('Abbotsleigh Road');
-      roads.should.include('Birchwood Road');
-      roads.should.include('Nimrod Road');
-      roads.should.not.include('Eardley Road');
+      roads.length.should.be.greaterThan(0);
+      roads[0].should.be.an('object');
+      roads[0].should.have.property('name');
+      roads[0].should.have.property('type');
       done();
     });
   });
