@@ -49,6 +49,55 @@ function compareRoads(a, b) {
   } else return 0;
 }
 
+ * Reorganise ways into buckets using road name
+ *
+ * @param {array} roads from OSM
+ * @returns {array} Object containing road names as keys mapped to array of ways with that name.
+ */
+function bucketByName(roads) {
+  const dupes = {};
+  roads.forEach((road) => {
+    const key = road.name;
+    if (dupes[key]) {
+      dupes[key].push(road);
+    } else {
+      dupes[key] = [road];
+    }
+  });
+  return dupes;
+}
+
+/**
+ * Best effort to remove duplicate ways for a road
+ *
+ * @param {array} roadBucket from OSM
+ * @returns {array} Deduped set of ways
+ */
+function dedupeRoad(roadBucket) {
+  return roadBucket.filter((way, index, self) =>
+    self.findIndex(w =>
+      w.type === way.type &&
+      w.oneway === way.oneway &&
+      w.lit === way.lit &&
+      w.lanes === way.lanes &&
+      w.maxspeed === way.maxspeed)
+    === index);
+}
+
+/**
+ * Best effort to remove duplicates
+ *
+ * @param {array} roads post-format roads from OSM
+ * @returns {array} Deduped set of roads
+ */
+function dedupe(roads) {
+  const waysByName = bucketByName(roads);
+  Object.keys(waysByName).forEach((roadName) => {
+    waysByName[roadName] = dedupeRoad(waysByName[roadName]);
+  });
+  return [].concat(...Object.values(waysByName));
+}
+
 /**
  * Retrieve and process roads from the the Overpass API
  *
@@ -75,4 +124,6 @@ function getRoads(query, callback) {
   });
 }
 
-module.exports = { getRoads };
+module.exports = {
+  getRoads,
+};
