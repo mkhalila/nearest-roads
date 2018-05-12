@@ -1,33 +1,9 @@
 # nearest-roads
 Get nearest roads to a given location, or all roads within a bounding box.
 
-## Version 1.0.1: Breaking Backwards Compatibility
-Previously, this module would only return an array containing all the **names** of roads that matched the query. Quite clearly though, this was fairly limited. It also didn't take full advantage of the data coming from OpenStreetMaps.
-
-Therefore, this update now returns an **array of objects** - one for each road. Each road object contains the following fields:
-* `name`: Name of the road (yes, would you believe it.)
-* `type`: If the road is a [residential, tertiary, secondary, service, ...] road
-* `oneway`*: `true` if the road is a oneway
-* `lit`*: `true` if the road has lighting
-* `lanes`*: No. of lanes the road has
-* `maxspeed`*: The maximum permitted speed limit as an integer
-
-<nowiki>*</nowiki>The existence of these fields for each road is entirely dependent on if there is such data in OSM i.e., these will only exist if the relevant data is present in OSM, otherwise the fields will be undefined.
-
-N.B. Some of the fields of the road objects have been converted to a more programmatically consumable type when compared to OSM data.
-
-I have also removed the `array-unique` dependency that this module used to have, as it is no longer relevant.
-
-Finally, this completes the intended requirements that were laid out when I aimed to create this module. Hence due to breaking backwards compatibility, and _completing_ the intended functionality of this module, this is officially version 1.x
-
-## Version 0.2.0: Bounding Box Support!
-Previously, you could only retrieve the nearest roads to a central (lat, lon) location and a given radius distance.
-
-Now, there is support for getting all the roads inside a [Bounding box](http://wiki.openstreetmap.org/wiki/Overpass_API/Language_Guide#The_bounding_box).
-
 ## Installation
 
-  npm install nearest-roads --save
+  `npm install nearest-roads --save`
 
 ## Usage
   `const nearestRoads = require('nearest-roads');`
@@ -86,8 +62,64 @@ nearestRoads.boundingBox(51.5707755427, 0.922651543, 51.5046221724, 0.6790402342
     maxspeed: 30 },
     ... 1526 more items ]
 ```
+## Releases
+
+### Version 1.1.0: Sorted Roads
+Previously, the roads that would be returned were in no *sort(!)* of order. Nor was it the case that Overpass was returning these sorted in distance order - which would have been really useful might I add!
+
+Since the previous ordering has no semantic meaning I decided to sort roads alphabetically.
+
+#### Before:
+```json
+[
+  { "name": "Nimrod Road", "type": "residential", "maxspeed": 20 },
+  { "name": "Gracedale Road", "type": "residential", "maxspeed": 20 },
+  { "name": "Parklands Road", "type": "residential", "maxspeed": 20 },
+  { "name": "Woodnook Road", "type": "residential", "maxspeed": 20 },
+  { "name": "Brookview Road", "type": "residential","maxspeed": 20 },
+  { "name": "Nimrod Road", "type": "residential", "maxspeed": 20 },
+  { "name": "Ribblesdale Road", "type": "residential", "maxspeed": 20 }
+]
+```
+
+#### After:
+```json
+[
+  { "name": "Brookview Road", "type": "residential", "maxspeed": 20 },
+  { "name": "Gracedale Road", "type": "residential", "maxspeed": 20 },
+  { "name": "Nimrod Road", "type": "residential", "maxspeed": 20 },
+  { "name": "Nimrod Road", "type": "residential", "maxspeed": 20 },
+  { "name": "Parklands Road", "type": "residential", "maxspeed": 20 },
+  { "name": "Ribblesdale Road", "type": "residential", "maxspeed": 20 },
+  { "name": "Woodnook Road", "type": "residential", "maxspeed": 20 }
+]
+```
+
+### Version 1.0.1: Breaking Backwards Compatibility
+Previously, this module would only return an array containing all the **names** of roads that matched the query. Quite clearly though, this was fairly limited. It also didn't take full advantage of the data coming from OpenStreetMaps.
+
+Therefore, this update now returns an **array of objects** - one for each road. Each road object contains the following fields:
+* `name`: Name of the road (yes, would you believe it.)
+* `type`: If the road is a [residential, tertiary, secondary, service, ...] road
+* `oneway`*: `true` if the road is a oneway
+* `lit`*: `true` if the road has lighting
+* `lanes`*: No. of lanes the road has
+* `maxspeed`*: The maximum permitted speed limit as an integer
+
+<nowiki>*</nowiki>The existence of these fields for each road is entirely dependent on if there is such data in OSM i.e., these will only exist if the relevant data is present in OSM, otherwise the fields will be undefined.
+
+N.B. Some of the fields of the road objects have been converted to a more programmatically consumable type when compared to OSM data.
+
+I have also removed the `array-unique` dependency that this module used to have, as it is no longer relevant.
+
+Finally, this completes the intended requirements that were laid out when I aimed to create this module. Hence due to breaking backwards compatibility, and _completing_ the intended functionality of this module, this is officially version 1.x
+
+### Version 0.2.0: Bounding Box Support!
+Previously, you could only retrieve the nearest roads to a central (lat, lon) location and a given radius distance.
+
+Now, there is support for getting all the roads inside a [Bounding box](http://wiki.openstreetmap.org/wiki/Overpass_API/Language_Guide#The_bounding_box).
   
-## Contributing
+### Contributing
 
 This project adheres to the [Airbnb JavaScript Style Guide](https://github.com/airbnb/javascript).
 
