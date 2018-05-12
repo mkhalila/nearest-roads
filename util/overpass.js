@@ -35,6 +35,21 @@ function formatRoad(osmRoad) {
 }
 
 /**
+  * Sort comparison function for two Road objects
+  *
+  * @param {Object} a road
+  * @param {Object} b road
+  * @returns {Number} 1 if a larger, -1 if a smaller and 0 if equal
+  */
+function compareRoads(a, b) {
+  if (a.name < b.name) {
+    return -1;
+  } else if (a.name > b.name) {
+    return 1;
+  } else return 0;
+}
+
+/**
  * Retrieve and process roads from the the Overpass API
  *
  * @param {String} query The Overpass query describing the request.
@@ -53,6 +68,8 @@ function getRoads(query, callback) {
         roads.push(road);
       }
     });
+
+    roads.sort(compareRoads);
 
     return callback(null, roads);
   });

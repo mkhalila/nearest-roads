@@ -13,8 +13,8 @@ describe('#fromLocation', () => {
       should.exist(roads);
       roads.should.be.an('array');
       roads.should.have.length(2);
-      roads[0].name.should.equal('Woodnook Road');
-      roads[1].name.should.equal('Nimrod Road');
+      roads[0].name.should.equal('Nimrod Road');
+      roads[1].name.should.equal('Woodnook Road');
       done();
     });
   });
