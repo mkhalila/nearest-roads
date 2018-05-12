@@ -49,6 +49,7 @@ function compareRoads(a, b) {
   } else return 0;
 }
 
+/**
  * Reorganise ways into buckets using road name
  *
  * @param {array} roads from OSM
@@ -120,7 +121,7 @@ function getRoads(query, callback) {
 
     roads.sort(compareRoads);
 
-    return callback(null, roads);
+    return callback(null, dedupe(roads));
   });
 }
 
