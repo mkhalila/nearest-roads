@@ -4,6 +4,7 @@
   "description": "Get nearest roads to a given location, or all roads within a bounding box.",
   "main": "index.js",
   "scripts": {
+    "lint": "eslint .",
     "test": "nyc --reporter=html --reporter=text ./node_modules/mocha/bin/mocha"
   },
   "repository": {
